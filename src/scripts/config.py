@@ -8,8 +8,9 @@ JDBC_OPTIONS_IN = {
     "password": 'de-student',
 }
 
+# контейнер sprint5
 JDBC_OPTIONS_OUT = {
-    "url": 'jdbc:postgresql://localhost:5432/postgres',
+    "url": 'jdbc:postgresql://localhost:5432/de',
     "driver": "org.postgresql.Driver",
     "schema": 'public',
     "dbtable": 'subscribers_feedback',
