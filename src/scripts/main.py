@@ -24,11 +24,14 @@ def main():
     result_df = join_and_transform_data(filtered_data, subscribers_data)
 
     # запускаем стриминг
-    (result_df.writeStream
-     .foreachBatch(save_to_postgresql_and_kafka)
-     .start()
-     .awaitTermination()
-     )
+    query = (result_df.writeStream
+             .foreachBatch(save_to_postgresql_and_kafka)
+             .start()
+             )
+    try:
+        query.awaitTermination()
+    finally:
+        query.stop()
 
 
 def create_spark_session(name: str = "RestaurantSubscribeStreamingService") -> SparkSession:
@@ -98,11 +101,10 @@ def join_and_transform_data(filtered_data: DataFrame, subscribers_data: DataFram
     return (filtered_data.join(subscribers_data, 'restaurant_id', 'inner')
             .withColumn("trigger_datetime_created", F.lit(int(round(datetime.utcnow().timestamp()))))
             .dropDuplicates(['client_id', 'restaurant_id'])
-            .withWatermark('timestamp', '1 minutes')
             )
 
 
-def save_to_postgresql_and_kafka(df: DataFrame) -> None:
+def save_to_postgresql_and_kafka(df: DataFrame, epoch_id) -> None:
     # сохраняем df в памяти, чтобы не создавать df заново перед отправкой в Kafka
     df.persist()
 

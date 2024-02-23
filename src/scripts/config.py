@@ -10,12 +10,12 @@ JDBC_OPTIONS_IN = {
 
 # контейнер sprint5
 JDBC_OPTIONS_OUT = {
-    "url": 'jdbc:postgresql://localhost:5432/de',
+    "url": 'jdbc:postgresql://rc1a-fswjkpli01zafgjm.mdb.yandexcloud.net:6432/de',
     "driver": "org.postgresql.Driver",
     "schema": 'public',
     "dbtable": 'subscribers_feedback',
-    "user": 'jovyan',
-    "password": 'jovyan',
+    "user": 'student',
+    "password": 'de-student',
 }
 
 KAFKA_OPTIONS = {

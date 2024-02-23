@@ -57,7 +57,6 @@ id|client_id                           |restaurant_id                       |
         adv_campaign_owner_contact text NOT NULL,
         adv_campaign_datetime_start int8 NOT NULL,
         adv_campaign_datetime_end int8 NOT NULL,
-        datetime_created int8 NOT NULL,
         client_id text NOT NULL,
         trigger_datetime_created int4 NOT NULL,
         feedback varchar NULL,
